@@ -1,0 +1,50 @@
+public swift.enum EventAction :: enum EventAction
+public swift.enum EventType :: enum EventType
+public swift.enum OtplessEventIO :: enum OtplessEventIO
+public swift.enum.case EventAction.REQUEST :: case REQUEST
+public swift.enum.case EventAction.RESPONSE :: case RESPONSE
+public swift.enum.case EventType.CLIENT :: case CLIENT
+public swift.enum.case EventType.CLIENT_TO_SDK :: case CLIENT_TO_SDK
+public swift.enum.case EventType.SDK :: case SDK
+public swift.enum.case EventType.SDK_TO_OTPLESS :: case SDK_TO_OTPLESS
+public swift.func.op EventAction.!=(_:_:) :: static func != (lhs: Self, rhs: Self) -> Bool
+public swift.func.op EventType.!=(_:_:) :: static func != (lhs: Self, rhs: Self) -> Bool
+public swift.init EventAction.init(from:) :: init(from decoder: any Decoder) throws
+public swift.init EventAction.init(rawValue:) :: init?(rawValue: String)
+public swift.init EventType.init(from:) :: init(from decoder: any Decoder) throws
+public swift.init EventType.init(rawValue:) :: init?(rawValue: String)
+public swift.init OtplessTrackEvent.init(eventType:action:eventName:url:statusCode:data:requestId:errorCode:token:asId:) :: init(eventType: EventType, action: EventAction, eventName: String, url: String? = nil, statusCode: Int? = nil, data: [String : Any]? = nil, requestId: String? = nil, errorCode: String? = nil, token: String? = nil, asId: String? = nil)
+public swift.method EventAction.encode(to:) :: func encode(to encoder: any Encoder) throws
+public swift.method EventAction.hash(into:) :: func hash(into hasher: inout Hasher)
+public swift.method EventType.encode(to:) :: func encode(to encoder: any Encoder) throws
+public swift.method EventType.hash(into:) :: func hash(into hasher: inout Hasher)
+public swift.method OtplessEventIOContract.initialize(appId:) :: func initialize(appId: String)
+public swift.method OtplessEventIOContract.push(_:) :: func push(_ event: OtplessTrackEvent)
+public swift.method OtplessEventIOContract.pushDeviceEvent(sdkVersion:) :: func pushDeviceEvent(sdkVersion: String)
+public swift.method OtplessEventIOContract.pushDeviceEvent(sdkVersion:extras:) :: func pushDeviceEvent(sdkVersion: String, extras: [String : Any]?)
+public swift.method OtplessEventIOContract.pushDeviceEvent(sdkVersion:platform:) :: func pushDeviceEvent(sdkVersion: String, platform: String?)
+public swift.method OtplessEventIOContract.pushDeviceEvent(sdkVersion:platform:extras:) :: func pushDeviceEvent(sdkVersion: String, platform: String?, extras: [String : Any]?)
+public swift.method OtplessEventIOContract.retryFailedEvents() :: func retryFailedEvents()
+public swift.property EventAction.hashValue :: var hashValue: Int { get }
+public swift.property EventType.hashValue :: var hashValue: Int { get }
+public swift.property OtplessEventIOContract.appId :: var appId: String { get }
+public swift.property OtplessEventIOContract.trackingIds :: var trackingIds: (installationId: String, sessionId: String) { get }
+public swift.property OtplessTrackEvent.action :: let action: EventAction
+public swift.property OtplessTrackEvent.asId :: let asId: String?
+public swift.property OtplessTrackEvent.data :: let data: [String : Any]?
+public swift.property OtplessTrackEvent.errorCode :: let errorCode: String?
+public swift.property OtplessTrackEvent.eventName :: let eventName: String
+public swift.property OtplessTrackEvent.eventType :: let eventType: EventType
+public swift.property OtplessTrackEvent.requestId :: let requestId: String?
+public swift.property OtplessTrackEvent.statusCode :: let statusCode: Int?
+public swift.property OtplessTrackEvent.token :: let token: String?
+public swift.property OtplessTrackEvent.url :: let url: String?
+public swift.protocol OtplessEventIOContract :: protocol OtplessEventIOContract
+public swift.struct OtplessTrackEvent :: struct OtplessTrackEvent
+public swift.type.method OtplessEventIO.initialize(appId:) :: static func initialize(appId: String)
+public swift.type.method OtplessEventIO.push(_:) :: static func push(_ event: OtplessTrackEvent)
+public swift.type.method OtplessEventIO.pushDeviceEvent(sdkVersion:platform:extras:) :: static func pushDeviceEvent(sdkVersion: String, platform: String? = nil, extras: [String : Any]? = nil)
+public swift.type.method OtplessEventIO.retryFailedEvents() :: static func retryFailedEvents()
+public swift.type.property OtplessEventIO.appId :: static var appId: String { get }
+public swift.type.property OtplessEventIO.shared :: static var shared: any OtplessEventIOContract { get }
+public swift.type.property OtplessEventIO.trackingIds :: static var trackingIds: (installationId: String, sessionId: String) { get }

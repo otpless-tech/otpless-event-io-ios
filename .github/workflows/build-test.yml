@@ -1,0 +1,63 @@
+name: Build & Test
+
+# Deterministic CI guardrail for OtplessEventIO (iOS): build, the XCTest suite, and the
+# committed public-API-surface golden. Runs on every PR into main (no paths filter, so
+# it is safe to require as a branch-protection status check) and on every push to main.
+#
+# Why the surface golden is load-bearing here: consumers depend on this library as
+# `OtplessEventIO', '~> 1.0'` — an OPEN RANGE. Any 1.x release is picked up by a
+# `pod install` in a merchant app with no review step in between, so a renamed or
+# re-signed public symbol is a merchant-visible break shipped by a version bump alone.
+#
+# The steps below restate the `gate` target in the root Makefile — the canonical
+# definition of "verified" for this repo. Change the Makefile first.
+#
+# This workflow never pushes commits.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: build-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    # macOS runner required: the surface golden is extracted with
+    # `xcrun swift-symbolgraph-extract` against the macOS SDK.
+    runs-on: macos-14
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Build
+        run: swift build
+
+      - name: Test
+        run: swift test
+
+      - name: Check public surface against committed golden
+        run: bash scripts/check-public-surface.sh
+
+  actionlint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Run actionlint
+        run: |
+          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
