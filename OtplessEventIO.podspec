@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OtplessEventIO'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Otpless event tracking SDK for iOS.'
 
   s.description      = <<-DESC
@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
   s.author           = { 'Otpless' => 'digvijay.singh@otpless.com' }
   s.source           = { :git => 'https://github.com/otpless-tech/otpless-event-io-ios.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target  = '13.0'
+  s.tvos.deployment_target = '13.0'
   s.swift_versions        = ['5.5']
 
   s.source_files = 'Sources/OtplessEventIO/**/*.swift'
